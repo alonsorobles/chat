@@ -20,6 +20,10 @@ chatServer.on('connection', function(client) {
     client.on('data', function(data){
         broadcast(data, client);
     });
+
+    client.on('end', function() {
+        clientList.splice(clientList.indexOf(client), 1);
+    });
 });
 
 chatServer.listen(9000);
