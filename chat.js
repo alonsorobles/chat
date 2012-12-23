@@ -7,7 +7,7 @@ function broadcast(data, client) {
     var cleanup = [];
     for (var i = 0; i < clientList.length; i += 1) {
         if (clientList[i] !== client) {
-            if (clientList[i].writeable) {
+            if (clientList[i].writable) {
                 clientList[i].write(client.name + ' says ' + data);
             } else {
                 cleanup.push(clientList[i]);
@@ -33,6 +33,10 @@ chatServer.on('connection', function(client) {
 
     client.on('end', function() {
         clientList.splice(clientList.indexOf(client), 1);
+    });
+
+    client.on('error', function(e) {
+       console.log(e);
     });
 });
 
